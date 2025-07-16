@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { marked } from "marked";
 import { routes } from "./api/routes";
-import { apiFetch } from "./utils/apiFetch";
+import { apiFetch } from "./api/apiFetch";
 
 export default function Home() {
   const [prompt, setPrompt] = useState("");
@@ -56,11 +56,10 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-4 bg-black">
+    <main className="min-h-screen flex flex-col items-center justify-center p-4  bg-black">
       <h1 className="text-3xl font-bold mb-4">AI Chat Bot</h1>
 
-      <div className="relative w-full max-w-xl mb-4">
-        {/* Dropdown in top-right corner */}
+      <div className="relative w-full max-w-xl mb-4 overflow-visible">
         <select
           value={selectedModel}
           onChange={(e) => setSelectedModel(e.target.value)}
