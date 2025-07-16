@@ -17,15 +17,33 @@ export default function Home() {
     setLoading(true);
     setResponse("");
     setFormattedHtml("");
+    let endpoint;
 
+    // Use switch-case to determine the correct route
+    switch (selectedModel) {
+      case "chatgpt":
+        endpoint = routes.chatgpt;
+        break;
+      case "gemini":
+        endpoint = routes.gemini;
+        break;
+      case "cohere":
+        endpoint = routes.cohere;
+        break;
+      case "kimi-k2":
+      case "mistral-small-3.2":
+        endpoint = routes.openRouter;
+        break;
+      default:
+        setResponse("❌ Unknown model selected");
+        setLoading(false);
+        return;
+    }
     try {
-      const result: any = await apiFetch(
-        selectedModel === "chatgpt" ? routes.chatgpt : routes.gemini,
-        {
-          method: "POST",
-          body: { prompt },
-        }
-      );
+      const result: any = await apiFetch(endpoint, {
+        method: "POST",
+        body: { prompt, model: selectedModel },
+      });
       console.log("API Response:", result);
       setResponse(result.response || "No response");
       const html = await marked.parse(result.response);
@@ -46,10 +64,15 @@ export default function Home() {
         <select
           value={selectedModel}
           onChange={(e) => setSelectedModel(e.target.value)}
-          className="absolute bottom-3 left-2 bg-black border border-gray-300 text-sm rounded px-2 py-1 shadow-sm"
+          className="absolute bottom-3.5 left-2 bg-black border border-gray-300 text-sm rounded px-2 py-1 shadow-sm"
         >
-          <option value="chatgpt">ChatGPT</option>
           <option value="gemini">Gemini</option>
+          <option value="chatgpt">ChatGPT</option>
+          <option value="cohere">Cohere</option>
+          <option value="kimi-k2">OpenRouter-Kimi-k2</option>
+          <option value="mistral-small-3.2">
+            OpenRouter-Mistral-small-3.2
+          </option>
         </select>
 
         {/* Textarea */}
