@@ -1,4 +1,4 @@
 export const routes = {
-  chat: "/api/chat",
+  chatgpt: "/api/chatgpt",
   gemini: "/api/gemini",
 };
