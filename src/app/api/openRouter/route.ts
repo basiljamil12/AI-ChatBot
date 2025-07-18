@@ -40,6 +40,11 @@ export async function POST(req: NextRequest) {
           role: "user",
           content: prompt,
         },
+        // {
+        //   role: "system",
+        //   content:
+        //     "You are a cybersecurity expert. Follow the formatting instructions EXACTLY as specified. Do not add extra text, numbers, or prefixes. Use the exact control names provided and follow the specified format precisely. NEVER modify or change the control names - use them exactly as provided in the list.",
+        // },
       ],
     });
 

@@ -10,7 +10,7 @@ export default function Home() {
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
   const [formattedHtml, setFormattedHtml] = useState("");
-  const [selectedModel, setSelectedModel] = useState("");
+  const [selectedModel, setSelectedModel] = useState("gemini");
 
   const handleSubmit = async () => {
     if (!prompt) return;
@@ -57,13 +57,21 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center p-4  bg-black">
-      <h1 className="text-3xl font-bold mb-4">AI Chat Bot</h1>
+      <h1 className="text-3xl font-bold mb-4">Generative AI Chat Bot</h1>
 
-      <div className="relative w-full max-w-xl mb-4 overflow-visible">
+      <div className="relative w-full max-w-2xl mb-4 overflow-visible">
+        {/* Textarea */}
+        <textarea
+          className="w-full p-2 border rounded"
+          rows={5}
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+          placeholder="Type your prompt here..."
+        />
         <select
           value={selectedModel}
           onChange={(e) => setSelectedModel(e.target.value)}
-          className="absolute bottom-3.5 left-2 bg-black border border-gray-300 text-sm rounded px-2 py-1 shadow-sm"
+          className="relative  bg-black border border-gray-300 text-sm rounded px-2 py-1 shadow-sm"
         >
           <option value="gemini">Gemini</option>
           <option value="chatgpt">ChatGPT</option>
@@ -73,15 +81,6 @@ export default function Home() {
             OpenRouter-Mistral-small-3.2
           </option>
         </select>
-
-        {/* Textarea */}
-        <textarea
-          className="w-full p-2 border rounded"
-          rows={5}
-          value={prompt}
-          onChange={(e) => setPrompt(e.target.value)}
-          placeholder="Type your prompt here..."
-        />
       </div>
 
       <button
